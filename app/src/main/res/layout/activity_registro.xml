@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp">
+
+            <TextView
+                android:id="@+id/tvRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/bakbak_one"
+                android:text="Crea tu cuenta"
+                android:textColor="#1B5E20"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/containerCampos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRegistro"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Nombre y Apellidos"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="15dp"
+                    android:backgroundTint="#F5F5F5"/>
+
+                <EditText
+                    android:id="@+id/etFechaNacimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Fecha de Nacimiento (DD/MM/AAAA)"
+                    android:inputType="date"
+                    android:paddingLeft="15dp"
+                    android:backgroundTint="#F5F5F5"/>
+
+                <EditText
+                    android:id="@+id/emailRegistro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Correo electrónico"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="15dp"
+                    android:backgroundTint="#F5F5F5"/>
+
+                <EditText
+                    android:id="@+id/passRegistro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Contraseña (mín. 6)"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:backgroundTint="#F5F5F5"/>
+
+                <EditText
+                    android:id="@+id/passConfirmar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:hint="Confirmar contraseña"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:backgroundTint="#F5F5F5"/>
+
+                <TextView
+                    android:id="@+id/tvInfoPlanes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="ℹ ¿Diferencia entre Básico y Premium?"
+                    android:textColor="#2196F3"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:padding="5dp"/>
+
+                <RadioGroup
+                    android:id="@+id/rgTipoUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp">
+
+                    <RadioButton
+                        android:id="@+id/rbBasico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Básico"
+                        android:buttonTint="#1B5E20"
+                        android:checked="true"
+                        android:layout_marginEnd="20dp"/>
+
+                    <RadioButton
+                        android:id="@+id/rbPremium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Premium 👑"
+                        android:buttonTint="#FFD700" />
+                </RadioGroup>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRegistrarFinal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/boton_cuadrado"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/bakbak_one"
+                    android:text="CREAR PERFIL"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvVolver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="← Volver atrás"
+                    android:textColor="#9E9E9E"
+                    android:textSize="16sp"
+                    android:padding="10dp"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_below="@id/containerCampos"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                app:srcCompat="@drawable/imagencerdito" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Únete a la comunidad Pecunia"
+                android:textColor="#A5D6A7"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

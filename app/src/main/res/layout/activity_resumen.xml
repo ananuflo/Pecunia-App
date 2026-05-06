@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/resumenbueno">
+
+    <ImageButton
+        android:id="@+id/btnVolverResumenPremium"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_revert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#B8860B" />
+
+    <TextView
+        android:id="@+id/tvTituloPremium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/anton"
+        android:text="BALANCE PREMIUM 👑"
+        android:textColor="#B8860B"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTotalesPremium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#F2FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloPremium">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="BALANCE TOTAL"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvBalancePremium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/bakbak_one"
+                android:text="0.00 €"
+                android:textColor="#000000"
+                android:textSize="34sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="15dp"
+                android:background="#DDDDDD" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tvTotalIngresosPremium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Ingresos: 0.00 €"
+                    android:textColor="#2E7D32"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTotalGastosPremium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Gastos: 0.00 €"
+                    android:textColor="#C62828"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#F2FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardTotalesPremium">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <TableLayout
+                android:id="@+id/tablaCategorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+
+                <TableRow android:background="#B8860B" android:padding="12dp" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="CATEGORÍA" android:textColor="#FFFFFF" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:gravity="end" android:text="TOTAL" android:textColor="#FFFFFF" android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow android:id="@+id/filaSalud" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Salud" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalSalud" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+                <View android:layout_height="1dp" android:background="#EEEEEE" />
+
+                <TableRow android:id="@+id/filaComida" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Alimentación" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalComida" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+                <View android:layout_height="1dp" android:background="#EEEEEE" />
+
+                <TableRow android:id="@+id/filaTransporte" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Transporte" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalTransporte" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+                <View android:layout_height="1dp" android:background="#EEEEEE" />
+
+                <TableRow android:id="@+id/filaOcio" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Ocio" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalOcio" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+                <View android:layout_height="1dp" android:background="#EEEEEE" />
+
+                <TableRow android:id="@+id/filaCompras" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Compras" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalCompras" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+                <View android:layout_height="1dp" android:background="#EEEEEE" />
+
+                <TableRow android:id="@+id/filaHogar" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Hogar" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalHogar" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+                <View android:layout_height="1dp" android:background="#EEEEEE" />
+
+                <TableRow android:id="@+id/filaEfectivo" android:padding="18dp" android:background="?android:attr/selectableItemBackground" android:weightSum="1">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="Efectivo" android:textSize="16sp" android:textColor="#000000" />
+                    <TextView android:id="@+id/tvTotalEfectivo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.3" android:text="0.00 €" android:textSize="16sp" android:gravity="end" android:textColor="#888888" />
+                </TableRow>
+
+            </TableLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

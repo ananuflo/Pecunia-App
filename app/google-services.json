@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "514201247342",
+    "project_id": "pecunia-4a45c",
+    "storage_bucket": "pecunia-4a45c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514201247342:android:45b4d44437d08ede67107f",
+        "android_client_info": {
+          "package_name": "com.example.pecunia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFEerWZDoaG1mz5zH_l4m816H9mcTPJ50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
