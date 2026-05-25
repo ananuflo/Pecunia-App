@@ -16,6 +16,7 @@ import com.example.pecunia.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.Locale;
 
 public class ResumenBasico extends AppCompatActivity {
@@ -98,13 +99,21 @@ public class ResumenBasico extends AppCompatActivity {
             tvBalance.setTextColor(Color.parseColor("#2E7D32"));
         }
 
-        // --- LÓGICA DE NOTIFICACIÓN ---
-        if (balanceFinal < 50) {
-            enviarAvisoSaldoBajo(balanceFinal);
-        }
+        // --- MODIFICADO: Recuperación asíncrona del límite de aviso dinámico del usuario ---
+        db.collection("Usuarios").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+            double limitePersonalizado = 50.0; // Valor por defecto
+            if (documentSnapshot.exists() && documentSnapshot.contains("limiteAviso")) {
+                limitePersonalizado = documentSnapshot.getDouble("limiteAviso");
+            }
+
+            // Validación con el límite configurado por el propio usuario
+            if (balanceFinal < limitePersonalizado) {
+                enviarAvisoSaldoBajo(balanceFinal, limitePersonalizado);
+            }
+        });
     }
 
-    private void enviarAvisoSaldoBajo(double saldo) {
+    private void enviarAvisoSaldoBajo(double saldo, double limite) {
         String channelId = "pecunia_alertas_basico";
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -116,7 +125,8 @@ public class ResumenBasico extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.cerditoverde)
                 .setContentTitle("¡Aviso de Pecunia!")
-                .setContentText("Tu balance es de " + String.format("%.2f", saldo) + "€. ¡Ponte un límite!")
+                // 🌟 NUEVO MENSAJE PERSONALIZADO 🌟
+                .setContentText("Saldo inferior a " + String.format("%.2f", limite) + "€. ¡Ponte un límite!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
 

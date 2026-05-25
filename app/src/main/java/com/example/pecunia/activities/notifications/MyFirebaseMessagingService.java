@@ -16,7 +16,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // Se ejecuta cuando llega el mensaje de la nube
         if (remoteMessage.getNotification() != null) {
             mostrarNotificacion(
                     remoteMessage.getNotification().getTitle(),

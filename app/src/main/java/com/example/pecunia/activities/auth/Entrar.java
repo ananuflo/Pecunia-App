@@ -64,7 +64,7 @@ public class Entrar extends AppCompatActivity {
                                 .addOnCompleteListener(taskToken -> {
                                     if (taskToken.isSuccessful()) {
                                         String token = taskToken.getResult();
-                                        // Cambia "Usuarios" por el nombre exacto de tu colección en Firestore
+                                        // Cambia "Usuarios" por el nombre exacto de la colección en Firestore
                                         FirebaseFirestore.getInstance().collection("Usuarios")
                                                 .document(userId)
                                                 .update("fcmToken", token)

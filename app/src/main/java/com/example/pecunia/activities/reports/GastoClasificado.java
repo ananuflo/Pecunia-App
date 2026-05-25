@@ -59,7 +59,6 @@ public class GastoClasificado extends AppCompatActivity {
         CardView card = findViewById(idCard);
         card.setOnClickListener(v -> {
 
-            // --- LÓGICA DE BLOQUEO (VENTAJA PREMIUM) ---
             // Si el usuario es básico y elige algo que no sea Alimentación o Salud...
             if ("Básico".equals(tipoUsuario) &&
                     (!nombreCategoria.equals("Alimentación") && !nombreCategoria.equals("Salud"))) {

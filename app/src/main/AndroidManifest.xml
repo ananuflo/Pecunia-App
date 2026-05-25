@@ -54,6 +54,7 @@
 
         <activity android:name=".data.network.RetiradaEfectivo" android:exported="false" />
 
+        <activity android:name=".activities.main.PerfilActivity" />
         <service
             android:name=".activities.notifications.MyFirebaseMessagingService"
             android:exported="false">

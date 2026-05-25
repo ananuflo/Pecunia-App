@@ -35,8 +35,16 @@ public class ResumenClasificado extends AppCompatActivity {
         mes = getIntent().getStringExtra("MES_SELECCIONADO");
         anio = getIntent().getStringExtra("ANIO_SELECCIONADO");
 
+        // CORRECCIÓN DE SEGURIDAD: Sincronizar el nombre con la etiqueta de la base de datos
+        if ("Retirada Efectivo".equals(categoria)) {
+            categoria = "Efectivo";
+        }
+
         tvTitulo = findViewById(R.id.tvTituloDetalle);
-        tvTitulo.setText("DETALLE: " + categoria.toUpperCase());
+        if (tvTitulo != null && categoria != null) {
+            tvTitulo.setText("DETALLE: " + categoria.toUpperCase());
+        }
+
         contenedor = findViewById(R.id.contenedorGastosDetallados);
 
         findViewById(R.id.btnVolverAtras).setOnClickListener(v -> finish());
@@ -67,6 +75,9 @@ public class ResumenClasificado extends AppCompatActivity {
                         Double cant = doc.getDouble("cantidad");
                         añadirFila(idDoc, fecha, desc, cant);
                     }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al obtener desglose", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -93,6 +104,7 @@ public class ResumenClasificado extends AppCompatActivity {
         // Cantidad
         TextView tvC = new TextView(this);
         tvC.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2.5f));
+        if (cant == null) cant = 0.0;
         tvC.setText(String.format("-%.2f€", cant));
         tvC.setGravity(Gravity.END);
         tvC.setTextColor(Color.parseColor("#C62828"));
@@ -129,7 +141,7 @@ public class ResumenClasificado extends AppCompatActivity {
                             .delete()
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(this, "Gasto eliminado", Toast.LENGTH_SHORT).show();
-                                obtenerDetalles(); // Recargar la lista
+                                obtenerDetalles(); // Recargar la lista de forma reactiva
                             });
                 })
                 .setNegativeButton("Cancelar", null)

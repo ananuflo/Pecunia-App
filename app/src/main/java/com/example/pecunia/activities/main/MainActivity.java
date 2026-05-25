@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         obtenerDatosUsuario();
         configurarSpinners();
 
-        // --- NUEVO: Recuperar fecha si volvemos de un formulario ---
+        // Recuperar fecha si volvemos de un formulario
         procesarIntent(getIntent());
 
         bottomNav.setOnItemSelectedListener(item -> {
@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.nav_resumen) {
                 lanzarResumenSegunPlan();
+                return true;
+            } else if (id == R.id.nav_perfil) {
+                // NUEVO: Abre la actividad de perfil en pantalla completa
+                Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
+                startActivity(intent);
                 return true;
             } else if (id == R.id.nav_logout) {
                 cerrarSesionYSaltar();
@@ -72,7 +77,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // --- NUEVO: Este método se activa cuando enviamos el Intent desde el Formulario ---
+    // NUEVO: Al volver de PerfilActivity, este método refresca la cabecera automáticamente
+    @Override
+    protected void onResume() {
+        super.onResume();
+        obtenerDatosUsuario();
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);

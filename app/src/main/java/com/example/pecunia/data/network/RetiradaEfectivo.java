@@ -78,10 +78,10 @@ public class RetiradaEfectivo extends AppCompatActivity {
             }
         });
 
-        chequearPermisos();
+        comprobarPermisos();
     }
 
-    private void chequearPermisos() {
+    private void comprobarPermisos() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         } else {
@@ -115,7 +115,7 @@ public class RetiradaEfectivo extends AppCompatActivity {
         String radio = "2000";
 
         // 2. Construimos la URL usando concatenación limpia
-        // IMPORTANTE: Asegúrate de que no haya espacios en blanco en tu API_KEY
+        // IMPORTANTE: Asegurar de que no haya espacios en blanco en la API_KEY
         String url = "https://api.geoapify.com/v2/places?categories=service.financial.atm" +
                 "&filter=circle:" + lon + "," + lat + ",2000" +
                 "&bias=proximity:" + lon + "," + lat +

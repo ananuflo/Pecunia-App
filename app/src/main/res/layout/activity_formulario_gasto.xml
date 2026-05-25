@@ -7,11 +7,17 @@
 
     <ImageButton
         android:id="@+id/btnVolverFormGasto"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="12dp"
+        android:padding="12dp"
+        android:elevation="15dp"
+        android:translationZ="15dp"
+        android:clickable="true"
+        android:focusable="true"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_revert"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#1B5E20" />

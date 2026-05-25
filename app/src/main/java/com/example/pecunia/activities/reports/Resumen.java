@@ -41,7 +41,7 @@ public class Resumen extends AppCompatActivity {
         tvTotalIng = findViewById(R.id.tvTotalIngresosPremium);
         tvTotalGas = findViewById(R.id.tvTotalGastosPremium);
 
-        findViewById(R.id.btnVolverResumenPremium).setOnClickListener(v -> finish());
+        findViewById(R.id.btnVolverAtras).setOnClickListener(v -> finish());
 
         inicializarMapa();
         actualizarInterfazTabla();
@@ -51,6 +51,8 @@ public class Resumen extends AppCompatActivity {
     private void inicializarMapa() {
         String[] categoriasBase = {"Alimentación", "Salud", "Ocio", "Transporte", "Compras", "Hogar", "Retirada Efectivo"};
         mapaGastos.clear();
+
+        // CORREGIDO: Uso de categoriasBase en español para evitar el error de compilación
         for (String c : categoriasBase) {
             mapaGastos.put(c, 0.0);
         }
@@ -87,17 +89,26 @@ public class Resumen extends AppCompatActivity {
                                 tvBalance.setText(String.format("%.2f €", balance));
                                 tvBalance.setTextColor(balance >= 0 ? Color.parseColor("#2E7D32") : Color.RED);
 
-                                // --- LÓGICA DE NOTIFICACIÓN ---
-                                if (balance < 50) {
-                                    enviarAvisoSaldoBajo(balance);
-                                }
+                                // --- MODIFICADO: LÓGICA DE NOTIFICACIÓN DINÁMICA ---
+                                db.collection("Usuarios").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                                    double limitePersonalizado = 50.0; // Valor por defecto
+
+                                    if (documentSnapshot.exists() && documentSnapshot.contains("limiteAviso")) {
+                                        limitePersonalizado = documentSnapshot.getDouble("limiteAviso");
+                                    }
+
+                                    if (balance < limitePersonalizado) {
+                                        enviarAvisoSaldoBajo(balance, limitePersonalizado);
+                                    }
+                                });
 
                                 actualizarInterfazTabla();
                             });
                 });
     }
 
-    private void enviarAvisoSaldoBajo(double saldo) {
+    // CORREGIDO: Cabecera modificada para aceptar tanto el saldo como el límite dinámico
+    private void enviarAvisoSaldoBajo(double saldo, double limite) {
         String channelId = "pecunia_alertas";
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -109,7 +120,8 @@ public class Resumen extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.cerditoverde)
                 .setContentTitle("¡Saldo Bajo!")
-                .setContentText("Tu balance actual es de " + String.format("%.2f", saldo) + "€. ¡Cuidado!")
+                // 🌟 NUEVO MENSAJE PERSONALIZADO 🌟
+                .setContentText("Saldo inferior a " + String.format("%.2f", limite) + "€. ¡Ponte un límite!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
 
