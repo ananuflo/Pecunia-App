@@ -2,7 +2,6 @@ package com.example.pecunia.activities.reports;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -45,6 +44,13 @@ public class Resumen extends AppCompatActivity {
 
         inicializarMapa();
         actualizarInterfazTabla();
+        // Se ha quitado la carga de aquí para moverla al ciclo onResume
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // SOLUCIÓN: Cada vez que vuelves de borrar un gasto, este método se activa y actualiza las cuentas automáticamente
         cargarDatosDeFirebase();
     }
 
@@ -52,7 +58,6 @@ public class Resumen extends AppCompatActivity {
         String[] categoriasBase = {"Alimentación", "Salud", "Ocio", "Transporte", "Compras", "Hogar", "Retirada Efectivo"};
         mapaGastos.clear();
 
-        // CORREGIDO: Uso de categoriasBase en español para evitar el error de compilación
         for (String c : categoriasBase) {
             mapaGastos.put(c, 0.0);
         }
@@ -89,9 +94,8 @@ public class Resumen extends AppCompatActivity {
                                 tvBalance.setText(String.format("%.2f €", balance));
                                 tvBalance.setTextColor(balance >= 0 ? Color.parseColor("#2E7D32") : Color.RED);
 
-                                // --- MODIFICADO: LÓGICA DE NOTIFICACIÓN DINÁMICA ---
                                 db.collection("Usuarios").document(uid).get().addOnSuccessListener(documentSnapshot -> {
-                                    double limitePersonalizado = 50.0; // Valor por defecto
+                                    double limitePersonalizado = 50.0;
 
                                     if (documentSnapshot.exists() && documentSnapshot.contains("limiteAviso")) {
                                         limitePersonalizado = documentSnapshot.getDouble("limiteAviso");
@@ -107,7 +111,6 @@ public class Resumen extends AppCompatActivity {
                 });
     }
 
-    // CORREGIDO: Cabecera modificada para aceptar tanto el saldo como el límite dinámico
     private void enviarAvisoSaldoBajo(double saldo, double limite) {
         String channelId = "pecunia_alertas";
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -120,7 +123,6 @@ public class Resumen extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.cerditoverde)
                 .setContentTitle("¡Saldo Bajo!")
-                // 🌟 NUEVO MENSAJE PERSONALIZADO 🌟
                 .setContentText("Saldo inferior a " + String.format("%.2f", limite) + "€. ¡Ponte un límite!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);

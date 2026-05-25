@@ -60,11 +60,9 @@ public class ResumenClasificado extends AppCompatActivity {
                 .addOnSuccessListener(querySnapshot -> {
                     contenedor.removeAllViews();
                     if (querySnapshot.isEmpty()) {
-                        TextView sinDatos = new TextView(this);
-                        sinDatos.setText("No hay gastos en esta categoría.");
-                        sinDatos.setPadding(0, 50, 0, 0);
-                        sinDatos.setGravity(Gravity.CENTER);
-                        contenedor.addView(sinDatos);
+                        // Si la lista está vacía tras un borrado, cerramos la pantalla automáticamente
+                        Toast.makeText(this, "No quedan más gastos en esta categoría", Toast.LENGTH_SHORT).show();
+                        finish();
                         return;
                     }
 
@@ -141,7 +139,10 @@ public class ResumenClasificado extends AppCompatActivity {
                             .delete()
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(this, "Gasto eliminado", Toast.LENGTH_SHORT).show();
-                                obtenerDetalles(); // Recargar la lista de forma reactiva
+                                obtenerDetalles(); // Vuelve a consultar Firebase para actualizar la vista
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "No se pudo eliminar el gasto", Toast.LENGTH_SHORT).show();
                             });
                 })
                 .setNegativeButton("Cancelar", null)
